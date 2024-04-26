@@ -1,0 +1,124 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
+  <style>
+   body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h1 {
+  color: #007bff;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+input[type="text"] {
+  width: calc(100% - 48px);
+  padding: 16px;
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff, 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  padding: 16px 24px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.shortened-url {
+  margin-top: 40px;
+}
+
+.shortened-url a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.shortened-url a:hover {
+  color: #0056b3;
+}
+
+.error {
+  color: red;
+}
+
+   
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>URL Shortener</h1>
+    <form id="urlForm">
+      <input type="text" id="urlInput" placeholder="Enter URL...">
+      <button type="submit">Shorten</button>
+    </form>
+    <div class="shortened-url" id="shortenedUrl"></div>
+    <div class="error" id="errorMessage"></div>
+  </div>
+  <script>
+    document.getElementById('urlForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url = document.getElementById('urlInput').value;
+      const response = await fetch('http://localhost:3000/shorten/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url })
+      });
+
+      try {
+        const data = await response.json();
+        console.log('Response data:', data);
+
+        if (response.ok) {
+          document.getElementById('shortenedUrl').innerHTML = `
+            Shortened URL: <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>
+          `;
+          document.getElementById('errorMessage').textContent = '';
+        } else {
+          throw new Error(data.message || 'An error occurred');
+        }
+      } catch (error) {
+        document.getElementById('shortenedUrl').textContent = '';
+        document.getElementById('errorMessage').textContent = error.message;
+      }
+    });
+  </script>
+</body>
+</html>
