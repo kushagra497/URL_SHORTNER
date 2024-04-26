@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>URL Shortener</title>
-  <style>
-   body {
+<style>
+  body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 20px;
@@ -24,7 +24,7 @@
 }
 
 h1 {
-  color: #007bff;
+  color: #28a745; /* Green color */
   font-size: 36px;
   margin-bottom: 30px;
 }
@@ -41,12 +41,12 @@ input[type="text"] {
 
 input[type="text"]:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #007bff, 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 2px #28a745, 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 button {
   padding: 16px 24px;
-  background-color: #007bff;
+  background-color: #28a745; /* Green color */
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -55,7 +55,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #218838; /* Darker green color on hover */
 }
 
 .shortened-url {
@@ -63,22 +63,21 @@ button:hover {
 }
 
 .shortened-url a {
-  color: #007bff;
+  color: #28a745; /* Green color */
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s;
 }
 
 .shortened-url a:hover {
-  color: #0056b3;
+  color: #218838; /* Darker green color on hover */
 }
 
 .error {
   color: red;
 }
 
-   
-  </style>
+</style>
 </head>
 <body>
   <div class="container">
